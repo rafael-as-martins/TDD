@@ -2,13 +2,13 @@ package core;
 
 public class Dollar {
 
-    public int amout;
+    public int amount;
 
     public Dollar(int amount) {
-        this.amout = amount;
+        this.amount = amount;
     }
 
-    public void times(int multiplier) {
-        this.amout*=multiplier;
+    public Dollar times(int multiplier) {
+        return new Dollar(amount * multiplier);
     }
 }

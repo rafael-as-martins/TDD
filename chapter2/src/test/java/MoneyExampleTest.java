@@ -1,6 +1,8 @@
 import core.Dollar;
-import org.junit.Assert;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class MoneyExampleTest {
 
@@ -8,10 +10,13 @@ public class MoneyExampleTest {
     public void testMultiplication(){
         Dollar five = new Dollar(5);
 
-        five.times(2);
+        Dollar product = five.times(2);
 
-        Assert.assertEquals(10, five.amout);
+        assertThat(product.amount).isEqualTo(10);
 
+        product = five.times(3);
+
+        assertThat(product.amount).isEqualTo(15);
     }
 
 }
