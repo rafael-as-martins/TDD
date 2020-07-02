@@ -15,13 +15,24 @@ public class MoneyExampleTest {
     }
 
     @Test
-    public void testEqualityOf5And5(){
+    public void testDollarEqualityOf5And5(){
         assertThat(new Dollar(5).equals(new Dollar(5))).isTrue();
     }
 
     @Test
-    public void testEqualityOf5And6(){
+    public void testDollarEqualityOf5And6(){
         assertThat(new Dollar(5).equals(new Dollar(6))).isFalse();
+    }
+
+    @Test
+    public void testMoneyEquality(){
+        assertThat(new Dollar(5)).isEqualTo(new Dollar(5));
+        assertThat(new Dollar(6)).isEqualTo(new Dollar(6));
+
+        assertThat(new Franc(5)).isEqualTo(new Franc(5));
+        assertThat(new Franc(6)).isEqualTo(new Franc(6));
+
+        assertThat(new Franc(6)).isNotEqualTo(new Dollar(6));
     }
 
     @Test

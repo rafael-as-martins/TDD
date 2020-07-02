@@ -2,20 +2,20 @@ package core;
 
 import java.util.Objects;
 
-public class Dollar {
+public class Money {
 
-    private int amount;
+    protected int amount;
 
-    public Dollar(int amount) {
+    public Money(int amount) {
         this.amount = amount;
     }
 
     @Override
     public boolean equals(Object o) {
 
-        if(o instanceof  Dollar){
-            Dollar dollar = (Dollar) o;
-            return dollar.amount == amount;
+        if (o instanceof Money) {
+            Money money = (Money) o;
+            return money.amount == amount && this.getClass().equals(money.getClass());
         }
 
         return false;
@@ -23,11 +23,7 @@ public class Dollar {
 
     @Override
     public int hashCode() {
-        return 0;
-    }
-
-    public Dollar times(int multiplier) {
-        return new Dollar(amount * multiplier);
+        return Objects.hash(this.amount);
     }
 
     public int getAmount() {
