@@ -1,5 +1,5 @@
 import core.Dollar;
-import org.assertj.core.api.Assertions;
+import core.Franc;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -22,6 +22,14 @@ public class MoneyExampleTest {
     @Test
     public void testEqualityOf5And6(){
         assertThat(new Dollar(5).equals(new Dollar(6))).isFalse();
+    }
+
+    @Test
+    public void testFrancMultiplication10Times2And15Times3(){
+        Franc five = new Franc(5);
+
+        assertThat(five.times(2)).isEqualTo(new Franc(10));
+        assertThat(five.times(3)).isEqualTo(new Franc(15));
     }
 
 }
