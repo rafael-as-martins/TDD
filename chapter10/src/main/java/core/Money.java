@@ -2,7 +2,7 @@ package core;
 
 import java.util.Objects;
 
-public abstract class Money {
+public class Money {
 
     protected int amount;
     protected String currency;
@@ -20,14 +20,21 @@ public abstract class Money {
         return new Dollar(amount, "USD");
     }
 
-    public abstract Money times(int amount);
+    public Money times(int multiplier){
+        return new Money(this.amount * multiplier, this.currency);
+    }
+
+    @Override
+    public String toString() {
+        return this.amount + " " + this.currency;
+    }
 
     @Override
     public boolean equals(Object o) {
 
         if (o instanceof Money) {
             Money money = (Money) o;
-            return money.amount == amount && this.getClass().equals(money.getClass());
+            return money.amount == amount && this.currency.equals(money.currency);
         }
 
         return false;

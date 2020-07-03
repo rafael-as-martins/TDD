@@ -50,4 +50,9 @@ public class MoneyExampleTest {
         assertThat("CHF").isEqualTo(Money.franc(5).currency());
     }
 
+    @Test
+    public void testEqualityMoney5AndFranc5(){
+        assertThat(new Money(5, "CHF")).isEqualTo(new Money(5, "CHF"));
+    }
+
 }
