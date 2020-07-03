@@ -1,5 +1,6 @@
 import core.Dollar;
 import core.Franc;
+import core.Money;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -8,10 +9,10 @@ public class MoneyExampleTest {
 
     @Test
     public void testMultiplication(){
-        Dollar five = new Dollar(5);
+        Money five = Money.dollar(5);
 
-        assertThat(five.times(2)).isEqualTo(new Dollar(10));
-        assertThat(five.times(3)).isEqualTo(new Dollar(15));
+        assertThat(five.times(2)).isEqualTo(Money.dollar(10));
+        assertThat(five.times(3)).isEqualTo(Money.dollar(15));
     }
 
     @Test
@@ -26,21 +27,21 @@ public class MoneyExampleTest {
 
     @Test
     public void testMoneyEquality(){
-        assertThat(new Dollar(5)).isEqualTo(new Dollar(5));
-        assertThat(new Dollar(6)).isEqualTo(new Dollar(6));
+        assertThat(Money.dollar(5)).isEqualTo(Money.dollar(5));
+        assertThat(Money.dollar(6)).isEqualTo(Money.dollar(6));
 
-        assertThat(new Franc(5)).isEqualTo(new Franc(5));
-        assertThat(new Franc(6)).isEqualTo(new Franc(6));
+        assertThat(Money.franc(5)).isEqualTo(Money.franc(5));
+        assertThat(Money.franc(6)).isEqualTo(Money.franc(6));
 
-        assertThat(new Franc(6)).isNotEqualTo(new Dollar(6));
+        assertThat(Money.franc(6)).isNotEqualTo(Money.dollar(6));
     }
 
     @Test
     public void testFrancMultiplication10Times2And15Times3(){
-        Franc five = new Franc(5);
+        Money five = Money.franc(5);
 
-        assertThat(five.times(2)).isEqualTo(new Franc(10));
-        assertThat(five.times(3)).isEqualTo(new Franc(15));
+        assertThat(five.times(2)).isEqualTo(Money.franc(10));
+        assertThat(five.times(3)).isEqualTo(Money.franc(15));
     }
 
 }
