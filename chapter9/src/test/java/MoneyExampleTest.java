@@ -17,12 +17,12 @@ public class MoneyExampleTest {
 
     @Test
     public void testDollarEqualityOf5And5(){
-        assertThat(new Dollar(5).equals(new Dollar(5))).isTrue();
+        assertThat(Money.dollar(5).equals(Money.dollar(5))).isTrue();
     }
 
     @Test
     public void testDollarEqualityOf5And6(){
-        assertThat(new Dollar(5).equals(new Dollar(6))).isFalse();
+        assertThat(Money.dollar(5).equals(Money.dollar(6))).isFalse();
     }
 
     @Test
@@ -42,6 +42,12 @@ public class MoneyExampleTest {
 
         assertThat(five.times(2)).isEqualTo(Money.franc(10));
         assertThat(five.times(3)).isEqualTo(Money.franc(15));
+    }
+
+    @Test
+    public void testCurrencyUSDAndCHF(){
+        assertThat("USD").isEqualTo(Money.dollar(5).currency());
+        assertThat("CHF").isEqualTo(Money.franc(5).currency());
     }
 
 }

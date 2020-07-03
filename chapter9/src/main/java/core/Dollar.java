@@ -2,8 +2,8 @@ package core;
 
 public class Dollar extends Money{
 
-    public Dollar(int amount) {
-        super(amount);
+    protected Dollar(int amount, String currency) {
+        super(amount, currency);
     }
 
     @Override
@@ -12,7 +12,7 @@ public class Dollar extends Money{
     }
 
     public Money times(int multiplier) {
-        return new Dollar(amount * multiplier);
+        return Money.dollar(amount * multiplier);
     }
 
     public int getAmount() {
@@ -22,4 +22,5 @@ public class Dollar extends Money{
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
 }
