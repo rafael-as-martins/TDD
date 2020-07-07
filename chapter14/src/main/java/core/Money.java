@@ -40,8 +40,12 @@ public class Money implements Expression{
         return false;
     }
 
-    public Money reduce(String toCurrency){
-        return this;
+    @Override
+    public Money reduce(Bank bank, String toCurrency){
+
+        int rate = bank.rate(this.currency, toCurrency);
+
+        return new Money(this.amount / rate ,toCurrency);
     }
 
     public String currency() {
