@@ -1,6 +1,7 @@
 import core.Bank;
 import core.Expression;
 import core.Money;
+import core.Sum;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -41,11 +42,13 @@ public class MoneyExampleTest {
     @Test
     public void testSimpleAddition5DollarWith5Dollar(){
 
+        Expression sum = Money.dollar(3).plus(Money.dollar(4));
+
         Bank bank = new Bank();
-        Expression sum = Money.dollar(5).plus(Money.dollar(5));
         Money reduced = bank.reduce(sum, "USD");
 
-        assertThat(Money.dollar(10)).isEqualTo(reduced);
+        assertThat(Money.dollar(7)).isEqualTo(reduced);
+        assertThat("USD").isEqualTo(reduced.getCurrency());
     }
 
 

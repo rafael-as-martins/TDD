@@ -40,6 +40,10 @@ public class Money implements Expression{
         return false;
     }
 
+    public Money reduce(String toCurrency){
+        return this;
+    }
+
     public String currency() {
         return this.currency;
     }
@@ -57,7 +61,16 @@ public class Money implements Expression{
         this.amount = amount;
     }
 
-    public Expression plus(Money money) {
-        return new Money(this.amount + money.amount, currency);
+    public Expression plus(Money addend) {
+        return new Sum(this, addend);
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
 }
