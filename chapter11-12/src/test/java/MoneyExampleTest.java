@@ -1,5 +1,5 @@
-import core.Dollar;
-import core.Franc;
+import core.Bank;
+import core.Expression;
 import core.Money;
 import org.junit.jupiter.api.Test;
 
@@ -28,20 +28,8 @@ public class MoneyExampleTest {
     @Test
     public void testMoneyEquality(){
         assertThat(Money.dollar(5)).isEqualTo(Money.dollar(5));
-        assertThat(Money.dollar(6)).isEqualTo(Money.dollar(6));
-
         assertThat(Money.franc(5)).isEqualTo(Money.franc(5));
-        assertThat(Money.franc(6)).isEqualTo(Money.franc(6));
-
         assertThat(Money.franc(6)).isNotEqualTo(Money.dollar(6));
-    }
-
-    @Test
-    public void testFrancMultiplication10Times2And15Times3(){
-        Money five = Money.franc(5);
-
-        assertThat(five.times(2)).isEqualTo(Money.franc(10));
-        assertThat(five.times(3)).isEqualTo(Money.franc(15));
     }
 
     @Test
@@ -51,8 +39,14 @@ public class MoneyExampleTest {
     }
 
     @Test
-    public void testEqualityMoney5AndFranc5(){
-        assertThat(new Money(5, "CHF")).isEqualTo(new Money(5, "CHF"));
+    public void testSimpleAddition5DollarWith5Dollar(){
+
+        Bank bank = new Bank();
+        Expression sum = Money.dollar(5).plus(Money.dollar(5));
+        Money reduced = bank.reduce(sum, "USD");
+
+        assertThat(Money.dollar(10)).isEqualTo(reduced);
     }
+
 
 }
