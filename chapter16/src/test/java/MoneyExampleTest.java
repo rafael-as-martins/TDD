@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 public class MoneyExampleTest {
 
     @Test
-    public void testMultiplication(){
+    public void testMultiplication() {
         Money five = Money.dollar(5);
 
         assertThat(five.times(2)).isEqualTo(Money.dollar(10));
@@ -17,30 +17,30 @@ public class MoneyExampleTest {
     }
 
     @Test
-    public void testDollarEqualityOf5And5(){
+    public void testDollarEqualityOf5And5() {
         assertThat(Money.dollar(5).equals(Money.dollar(5))).isTrue();
     }
 
     @Test
-    public void testDollarEqualityOf5And6(){
+    public void testDollarEqualityOf5And6() {
         assertThat(Money.dollar(5).equals(Money.dollar(6))).isFalse();
     }
 
     @Test
-    public void testMoneyEquality(){
+    public void testMoneyEquality() {
         assertThat(Money.dollar(5)).isEqualTo(Money.dollar(5));
         assertThat(Money.franc(5)).isEqualTo(Money.franc(5));
         assertThat(Money.franc(6)).isNotEqualTo(Money.dollar(6));
     }
 
     @Test
-    public void testCurrencyUSDAndCHF(){
+    public void testCurrencyUSDAndCHF() {
         assertThat("USD").isEqualTo(Money.dollar(5).currency());
         assertThat("CHF").isEqualTo(Money.franc(5).currency());
     }
 
     @Test
-    public void testSimpleAddition5DollarWith5Dollar(){
+    public void testSimpleAddition5DollarWith5Dollar() {
 
         Expression sum = Money.dollar(3).plus(Money.dollar(4));
 
@@ -63,24 +63,57 @@ public class MoneyExampleTest {
     }
 
     @Test
-    public void testIdentityUSDWithUSD(){
+    public void testIdentityUSDWithUSD() {
         assertThat(1).isEqualTo(new Bank().rate("USD", "USD"));
     }
 
     @Test
-    public void testMixedAddition5DollarWith10Franc(){
+    public void testMixedAddition5DollarWith10Franc() {
 
         Expression fiveBucks = Money.dollar(5);
-        Expression fiveFranc = Money.franc(10);
+        Expression tenFranc = Money.franc(10);
 
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
 
-        Money result = bank.reduce(fiveBucks.plus(fiveFranc), "USD");
+        Money result = bank.reduce(fiveBucks.plus(tenFranc), "USD");
 
         assertThat(result).isEqualTo(Money.dollar(10));
         assertThat(result.getCurrency()).isEqualTo("USD");
 
     }
+
+    @Test
+    public void testSumPlusMoney() {
+
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+
+        Money result = bank.reduce(new Sum(fiveBucks, tenFrancs).plus(tenFrancs), "USD");
+
+        assertThat(result).isEqualTo(Money.dollar(10));
+        assertThat(result.getCurrency()).isEqualTo("USD");
+
+    }
+
+    @Test
+    public void testSumTimes() {
+
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+
+        Money result = bank.reduce(new Sum(fiveBucks, tenFrancs).times(2), "USD");
+
+        assertThat(result).isEqualTo(Money.dollar(20));
+        assertThat(result.getCurrency()).isEqualTo("USD");
+
+    }
+
 
 }

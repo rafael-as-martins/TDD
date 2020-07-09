@@ -20,13 +20,14 @@ public class Sum implements Expression {
     }
 
     @Override
-    public Expression plus(Expression money) {
-        return null;
+    public Expression plus(Expression addend) {
+        return new Sum(this.getAugend(), addend);
     }
+
 
     @Override
     public Expression times(int multiplier) {
-        return null;
+        return new Sum(this.augend.times(multiplier), this.addend.times(multiplier));
     }
 
     public Expression getAddend() {
