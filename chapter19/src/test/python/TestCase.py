@@ -1,12 +1,16 @@
 import unittest
 
-
 class TestCase:
 
     def __init__(self, name):
+        self.wasSetUp = 1
         self.name = name
 
+    def setUp(self):
+        self.test = WasRun("testMethod")
+
     def run(self):
+        self.setUp()
         exec("self." + self.name + "()")
 
 
@@ -22,12 +26,13 @@ class WasRun(TestCase):
 
 class TestCaseTest(TestCase):
 
-    def testRunning(self):
-        test = WasRun("testMethod")
-        assert(not test.wasRun)
+    def testSetUp(self):
+        self.test.run()
+        assert self.test.wasSetUp
 
-        test.run()
-        assert test.wasRun
+    def testRunning(self):
+        self.test.run()
+        assert self.test.wasRun
 
 
 TestCaseTest("testRunning").run()
