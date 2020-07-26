@@ -11,9 +11,14 @@ class TestCase:
         self.test = WasRun("testMethod")
 
     def run(self):
+        #result.testStarted()
         self.setUp()
         self.log = "setUp"
         exec ("self." + self.name + "()")
+        self.tearDown()
+
+    def tearDown(self):
+        pass
 
 
 class WasRun(TestCase):
@@ -29,28 +34,14 @@ class WasRun(TestCase):
         self.log = self.log + " testMethod"
 
     def tearDown(self):
-        self.log= self.log + "tearDown "
+        self.log= self.log + " tearDown"
 
 
 class TestCaseTest(TestCase):
 
-    def setUp(self):
-        self.test = WasRun("testMethod")
-
     def testTemplateMethod(self):
         test = WasRun("testMethod")
         test.run()
-        assert ("setUp testMethod" == test.log)
-        # assert ("setUp testMethod tearDown" == test.log)
-
-
-    # Really confusing chapter, no idea what's result and where's testStarted
-
-    # def run(self, result):
-    #     result.testStarted()
-    #     self.setUp()
-    #     exec "self." + self.name + "()"
-    #     self.tearDown()
-
+        assert ("setUp testMethod tearDown" == test.log)
 
 TestCaseTest("testTemplateMethod").run()
