@@ -15,7 +15,12 @@ class TestCase:
         result = TestResult()
         result.testStarted()
         self.setUp()
-        exec ("self." + self.name + "()")
+
+        try:
+            exec ("self." + self.name + "()")
+        except:
+            result.testFailed()
+
         self.tearDown()
         return result
 
@@ -36,21 +41,26 @@ class WasRun(TestCase):
         self.log = self.log + " testMethod"
 
     def tearDown(self):
-        self.log= self.log + " tearDown"
+        self.log = self.log + " tearDown"
 
     def testBrokenMethod(self):
         raise Exception
+
 
 class TestResult:
 
     def __init__(self):
         self.runCount = 0
+        self.errorCount = 0
 
     def testStarted(self):
         self.runCount = self.runCount + 1
 
+    def testFailed(self):
+        self.errorCount = self.errorCount + 1
+
     def summary(self):
-        return "%d run, 0 failed" % self.runCount
+        return "%d run, %d failed" % (self.runCount, self.errorCount)
 
 
 class TestCaseTest(TestCase):
@@ -65,10 +75,11 @@ class TestCaseTest(TestCase):
         result = test.run()
         assert ("1 run, 0 failed" == result.summary())
 
-    def testResult1Run1Failed(self):
-        test = WasRun("testBrokenMethod")
-        result = test.run()
+    def testFailedResultFormatting(self):
+        result = TestResult()
+        result.testStarted()
+        result.testFailed()
         assert ("1 run, 1 failed" == result.summary())
 
 
-TestCaseTest("testResult1Run1Failed").run()
+TestCaseTest("testFailedResultFormatting").run()
